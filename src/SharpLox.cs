@@ -4,13 +4,11 @@ using System.Linq;
 
 public class SharpLox
 {
-    public static int ERROR_STATUS = 0;
-
     static int Main(string[] args)
     {
         if(args.Count() > 1)
         {
-            SharpLox.Error(0, "Usage: SharpLox [script]");
+            SL_Error.Error(0, "Usage: SharpLox [script]");
         }
         else if(args.Count() == 1)
         {
@@ -21,7 +19,7 @@ public class SharpLox
             SharpLox.RunPrompt();
         }
 
-        return SharpLox.ERROR_STATUS;
+        return SL_Error.ERROR_STATUS;
     }
 
     static void RunFile(string path)
@@ -32,7 +30,7 @@ public class SharpLox
 
     static void RunPrompt()
     {
-        SharpLox.ERROR_STATUS = 0;
+        SL_Error.ERROR_STATUS = 0;
         Console.Write(">> ");
         string? code = Console.ReadLine();
         if(code != null && code != "exit()")
@@ -44,25 +42,13 @@ public class SharpLox
 
     static void Run(string code)
     {
-        foreach(string token in Scanner.Tokenize(code))
+        var _scan = new SL_Scanner(code);
+        if(SL_Error.ERROR_STATUS == 0)
         {
-            Console.WriteLine(token);
+            foreach(string token in SL_Scanner.Tokenize(code))
+            {
+                Console.WriteLine(token);
+            }
         }
-    }
-
-    static void Error(int line, string message)
-    {
-        SharpLox.ERROR_STATUS = 1;
-        SharpLox.Report(line, "", message);
-    }
-
-    static void Report(int line, string where, string message)
-    {
-        var _msg = $"** line {line}: {where} {message} **";
-        var _line = new string('*', _msg.Length);
-
-        Console.WriteLine(_line);
-        Console.WriteLine(_msg);
-        Console.WriteLine(_line);
     }
 }
