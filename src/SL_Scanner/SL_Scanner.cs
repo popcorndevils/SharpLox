@@ -1,5 +1,8 @@
 using System.Collections.Generic;
 
+/// <summary>
+/// Ingests code and produces tokens from the lexemes it finds.
+/// </summary>
 public partial class SL_Scanner
 {
     /// <summary>
@@ -28,6 +31,9 @@ public partial class SL_Scanner
         this.ScanTokens();
     }
 
+    /// <summary>
+    /// Scans through every character in the source code and creates tokens from lexemes.
+    /// </summary>
     private void ScanTokens()
     {
         while(!this.IsAtEnd())
@@ -39,9 +45,14 @@ public partial class SL_Scanner
         this.Tokens.Add(new Token(TokenType.EOF, "", null, this.Line));
     }
 
-    private bool IsAtEnd()
+    /// <summary>
+    /// Check if scanner has reached the end of the source code.
+    /// </summary>
+    /// <param name="dist">Optional number of characters to "look ahead".</param>
+    /// <returns>Returns true if there are no more characters to ingest from the source code.</returns>
+    private bool IsAtEnd(int dist = 0)
     {
-        return this.Current >= this.Source.Length;
+        return (this.Current + dist) >= this.Source.Length;
     }
 
     /// <summary>

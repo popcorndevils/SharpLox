@@ -33,25 +33,25 @@ public partial class SL_Scanner
         }
     }
     
-    public char Peek()
+    public char Peek(int dist = 0)
     {
-        if(this.IsAtEnd())
+        if(this.IsAtEnd(dist))
         {
             return '\0';
         }
         else
         {
-            return this.Source[this.Current];
+            return this.Source[this.Current + dist];
         }
     }
     
-    public bool Match(char expected)
+    public bool Match(char expected, int dist = 0)
     {
-        if(this.IsAtEnd())
+        if(this.IsAtEnd(dist))
         {
             return false;
         }
-        else if(this.Source[this.Current] != expected)
+        else if(this.Source[this.Current + dist] != expected)
         {
             return false;
         }
