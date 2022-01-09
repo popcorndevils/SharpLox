@@ -45,7 +45,7 @@ public class SharpLox
         var _scan = new SL_Scanner(code);
         if(SL_Error.ERROR_STATUS == 0)
         {
-            foreach(string token in SL_Scanner.Tokenize(code))
+            foreach(Token token in _scan.Tokens)
             {
                 Console.WriteLine(token);
             }

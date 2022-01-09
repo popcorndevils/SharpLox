@@ -15,6 +15,7 @@ public class Token
 
     public override string ToString()
     {
-        return $"{this.Type} {this.Lexeme} {this.Literal}";
+        string _lexeme = this.Lexeme.ToString() == "" ? "null" : this.Lexeme.ToString();
+        return $"{this.Type} {_lexeme} ({this.Literal ?? "null"})";
     }
 }
