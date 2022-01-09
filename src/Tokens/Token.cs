@@ -1,3 +1,6 @@
+/// <summary>
+/// Tokens are 
+/// </summary>
 public class Token
 {
     public readonly TokenType Type;
