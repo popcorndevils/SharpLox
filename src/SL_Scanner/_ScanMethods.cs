@@ -1,5 +1,27 @@
 public partial class SL_Scanner
 {
+    public double? GetNumber()
+    {
+        // consume all digits after the first
+        while(this.IsDigit(this.Peek()))
+        {
+            this.Advance();
+        }
+
+        // when running out of digits, check for decimal with digit afterwards
+        // only consume '.' if followed by a digit, and only the first time for each number Token
+        if(this.Peek() == '.' && this.IsDigit(this.Peek(1)))
+        {
+            this.Advance();
+            while(this.IsDigit(this.Peek()))
+            {
+                this.Advance();
+            }
+        }
+
+        return double.Parse(this.Source.Substring(this.Start, this.Current - this.Start));
+    }
+
     public string? GetString()
     {
         while(this.Peek() != '"' && !this.IsAtEnd())
@@ -58,5 +80,10 @@ public partial class SL_Scanner
 
         this.Current++;
         return true;
+    }
+
+    public bool IsDigit(char c)
+    {
+        return c >= '0' && c <= '9';
     }
 }

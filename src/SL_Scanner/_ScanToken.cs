@@ -93,7 +93,15 @@ public partial class SL_Scanner
                 break;
             // ERROR
             default:
-                SL_Error.Error(this.Line, "Unexpected Character");
+                if(this.IsDigit(c))
+                {
+                    var _number = this.GetNumber();
+                    this.AddToken(TokenType.NUMBER, _number);
+                }
+                else
+                {
+                    SL_Error.Error(this.Line, "Unexpected Character");
+                }
                 break;
         }
     }
