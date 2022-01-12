@@ -98,6 +98,23 @@ public partial class SL_Scanner
                     var _number = this.GetNumber();
                     this.AddToken(TokenType.NUMBER, _number);
                 }
+                else if(this.IsAlpha(c))
+                {
+                    TokenType _token;
+
+                    string _identifier = this.GetIdentifier();
+
+                    if(LoxDefinitions.Keywords.ContainsKey(_identifier))
+                    {
+                        _token = LoxDefinitions.Keywords[_identifier];
+                    }
+                    else
+                    {
+                        _token = TokenType.IDENTIFIER;
+                    }
+                    
+                    this.AddToken(_token);
+                }
                 else
                 {
                     SL_Error.Error(this.Line, "Unexpected Character");
