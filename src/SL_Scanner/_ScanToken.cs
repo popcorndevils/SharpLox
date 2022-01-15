@@ -11,47 +11,47 @@ public partial class SL_Scanner
         {
             // SINGLE CHAR LEXEMES
             case '(':
-                this.AddToken(TokenType.LEFT_PAREN);
+                this.AddToken(Token.Type.LEFT_PAREN);
                 break;
             case ')':
-                this.AddToken(TokenType.RIGHT_PAREN);
+                this.AddToken(Token.Type.RIGHT_PAREN);
                 break;
             case '{':
-                this.AddToken(TokenType.LEFT_BRACE);
+                this.AddToken(Token.Type.LEFT_BRACE);
                 break;
             case '}':
-                this.AddToken(TokenType.RIGHT_BRACE);
+                this.AddToken(Token.Type.RIGHT_BRACE);
                 break;
             case ',':
-                this.AddToken(TokenType.COMMA);
+                this.AddToken(Token.Type.COMMA);
                 break;
             case '.':
-                this.AddToken(TokenType.DOT);
+                this.AddToken(Token.Type.DOT);
                 break;
             case '-':
-                this.AddToken(TokenType.MINUS);
+                this.AddToken(Token.Type.MINUS);
                 break;
             case '+':
-                this.AddToken(TokenType.PLUS);
+                this.AddToken(Token.Type.PLUS);
                 break;
             case ';':
-                this.AddToken(TokenType.SEMICOLON);
+                this.AddToken(Token.Type.SEMICOLON);
                 break;
             case '*':
-                this.AddToken(TokenType.STAR);
+                this.AddToken(Token.Type.STAR);
                 break;
             // TWO CHARACTER LEXEMES
             case '!':
-                this.AddToken(this.Match('=') ? TokenType.BANG_EQUAL : TokenType.BANG);
+                this.AddToken(this.Match('=') ? Token.Type.BANG_EQUAL : Token.Type.BANG);
                 break;
             case '=':
-                this.AddToken(this.Match('=') ? TokenType.EQUAL_EQUAL : TokenType.EQUAL);
+                this.AddToken(this.Match('=') ? Token.Type.EQUAL_EQUAL : Token.Type.EQUAL);
                 break;
             case '<':
-                this.AddToken(this.Match('=') ? TokenType.GREATER_EQUAL : TokenType.GREATER);
+                this.AddToken(this.Match('=') ? Token.Type.GREATER_EQUAL : Token.Type.GREATER);
                 break;
             case '>':
-                this.AddToken(this.Match('=') ? TokenType.LESS_EQUAL : TokenType.LESS);
+                this.AddToken(this.Match('=') ? Token.Type.LESS_EQUAL : Token.Type.LESS);
                 break;
             // COMPLEX LEXEMES
             case '/':
@@ -66,7 +66,7 @@ public partial class SL_Scanner
                 }   
                 else 
                 {
-                    this.AddToken(TokenType.SLASH);
+                    this.AddToken(Token.Type.SLASH);
                 }
                 break;
             // WHITESPACE
@@ -88,29 +88,29 @@ public partial class SL_Scanner
                 }
                 else
                 {
-                    this.AddToken(TokenType.STRING, _string);
+                    this.AddToken(Token.Type.STRING, _string);
                 }
                 break;
             // ERROR
             default:
-                if(this.IsDigit(c))
+                if(c.IsDigit())
                 {
                     var _number = this.GetNumber();
-                    this.AddToken(TokenType.NUMBER, _number);
+                    this.AddToken(Token.Type.NUMBER, _number);
                 }
-                else if(this.IsAlpha(c))
+                else if(c.IsAlpha())
                 {
-                    TokenType _token;
+                    Token.Type _token;
 
                     string _identifier = this.GetIdentifier();
 
-                    if(LoxDefinitions.Keywords.ContainsKey(_identifier))
+                    if(Token.Keywords.ContainsKey(_identifier))
                     {
-                        _token = LoxDefinitions.Keywords[_identifier];
+                        _token = Token.Keywords[_identifier];
                     }
                     else
                     {
-                        _token = TokenType.IDENTIFIER;
+                        _token = Token.Type.IDENTIFIER;
                     }
                     
                     this.AddToken(_token);

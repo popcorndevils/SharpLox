@@ -3,17 +3,17 @@ public partial class SL_Scanner
     public double? GetNumber()
     {
         // consume all digits after the first
-        while(this.IsDigit(this.Peek()))
+        while(this.Peek().IsDigit())
         {
             this.Advance();
         }
 
         // when running out of digits, check for decimal with digit afterwards
         // only consume '.' if followed by a digit, and only the first time for each number Token
-        if(this.Peek() == '.' && this.IsDigit(this.Peek(1)))
+        if(this.Peek() == '.' && this.Peek(1).IsDigit())
         {
             this.Advance();
-            while(this.IsDigit(this.Peek()))
+            while(this.Peek().IsDigit())
             {
                 this.Advance();
             }
@@ -57,7 +57,7 @@ public partial class SL_Scanner
 
     public string GetIdentifier()
     {
-        while(this.IsAlphaDigit(this.Peek()))
+        while(this.Peek().IsAlphaDigit())
         {
             this.Advance();
         }

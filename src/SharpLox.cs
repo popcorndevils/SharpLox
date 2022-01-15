@@ -42,7 +42,7 @@ public class SharpLox
 
     static void Run(string code)
     {
-        var _scan = new SL_Scanner(code);
+        var _scan = new Scanner(code);
         if(SL_Error.ERROR_STATUS == 0)
         {
             foreach(Token token in _scan.Tokens)

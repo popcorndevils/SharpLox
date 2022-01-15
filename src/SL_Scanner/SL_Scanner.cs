@@ -32,7 +32,7 @@ public partial class SL_Scanner
             this.Start = this.Current;
             this.ScanToken();
         }
-        this.Tokens.Add(new Token(TokenType.EOF, "", null, this.Line));
+        this.Tokens.Add(new Token(Token.Type.EOF, "", null, this.Line));
     }
 
     /// <summary>
@@ -50,7 +50,7 @@ public partial class SL_Scanner
     /// </summary>
     /// <param name="type">Type of token being added.</param>
     /// <param name="literal">Optional object representing the value being stored.</param>
-    private void AddToken(TokenType type, object? literal = null)
+    private void AddToken(Token.Type type, object? literal = null)
     {
         string _lexeme = this.Source.Substring(this.Start, this.Current - this.Start);
         this.Tokens.Add(new Token(type, _lexeme, literal, this.Line));

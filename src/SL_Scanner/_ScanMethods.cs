@@ -36,21 +36,4 @@ public partial class SL_Scanner
         this.Current++;
         return true;
     }
-
-    public bool IsAlpha(char c)
-    {
-        return (c >= 'a' && c <= 'z') ||
-               (c >= 'A' && c <= 'Z') ||
-               (c == '_');
-    }
-
-    public bool IsDigit(char c)
-    {
-        return c >= '0' && c <= '9';
-    }
-
-    public bool IsAlphaDigit(char c)
-    {
-        return this.IsAlpha(c) || this.IsDigit(c);
-    }
 }
