@@ -73,7 +73,9 @@ public class Scanner
             case '*':
                 _output = new Token(Token.Type.STAR, this.GetLexeme(), null, this._Line);
                 break;
-            
+            case '"':
+                _output = this.GetStringToken();
+                break;
             default:
                 SL_Error.Error(this._Line, $"Unexpected character: '{c}'");
                 break;
@@ -90,5 +92,12 @@ public class Scanner
     public string GetLexeme()
     {
         return this._Source.Substring(this._Start, this._Current - this._Start);
+    }
+
+    public Token GetStringToken()
+    {
+        Token _output;
+        _output = new Token(Token.Type.NIL, this.GetLexeme(), null, this._Line);
+        return _output;
     }
 }
